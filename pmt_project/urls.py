@@ -3,6 +3,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+handler403 = 'core.views.permission_denied'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),

@@ -1,0 +1,17 @@
+{% extends "core/base.html" %} {% block content %}
+<style type="text/css">
+    .error-page span {
+        font-weight: bold;
+        display: block;
+    }
+</style>
+<div class="row pb-2">
+    <div class="col-md-6 error-page offset-md-3">
+        <h5>Your request failed</h5>
+        <hr />
+        <p class="text-danger">
+            {{msg}} <span class="text-warning">{{res}}</span>
+        </p>
+    </div>
+</div>
+{% endblock content%}
