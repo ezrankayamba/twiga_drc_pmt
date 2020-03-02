@@ -1,0 +1,13 @@
+<div class="chart-wrapper">
+    <div class="chart-area-wrapper">
+        <canvas
+            data-url="{%url 'data-project-region-plus'%}"
+            id="projectRegion"
+        ></canvas>
+    </div>
+</div>
+<script>
+    docReady(function(){
+        dashboard_loadregions();
+    });
+</script>

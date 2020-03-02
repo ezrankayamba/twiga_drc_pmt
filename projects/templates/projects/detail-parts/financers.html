@@ -1,0 +1,64 @@
+<div class="card-header p-0 row">
+    <div class="col">
+        <a
+            class="btn p-2 btn-block text-left"
+            role="button"
+            data-toggle="collapse"
+            data-target="#financier"
+            aria-expanded="false"
+            aria-controls="financier"
+        >
+            Financers
+        </a>
+    </div>
+    <div class="col col-md-2 m-1">
+        <a
+            href="{%url 'projects-financer-create' prj.id %}"
+            role="button"
+            class="btn btn-sm btn-outline-primary float-right"
+            >Add New</a
+        >
+    </div>
+</div>
+<div id="financier" class="collapse" data-parent="#details">
+    <div class="card-body p-2">
+        <div class="row">
+            {%for prj_fin in prj.financers.all%}
+            <div class="col-md pb-3">
+                <p class="mb-1">
+                    {{prj_fin.financer.name}}
+                </p>
+                <p class="mb-1 text-muted">
+                    {{prj_fin.financer.contact_person}} -
+                    {{prj_fin.financer.position}}
+                </p>
+                <p class="mb-1 text-muted">
+                    <i class="fa fa-phone"></i> {{prj_fin.financer.phone}}
+                </p>
+                <p class="mb-1 text-muted">
+                    <i class="fa fa-at"></i> {{prj_fin.financer.email}}
+                </p>
+                <form
+                    method="POST"
+                    action="{%url 'projects-financer-delete' prj_fin.id%}"
+                >
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-outline-danger">
+                        <i class="fa fa-trash-alt"></i> Delete
+                    </button>
+                    <a
+                        class="btn btn-sm btn-outline-secondary"
+                        href="{%url 'projects-financer-update' prj.id prj_fin.id%}"
+                        role="button"
+                        ><i class="fa fa-edit"></i> Edit</a
+                    >
+                </form>
+            </div>
+            {%empty%}
+            <div class="col">
+                <p>No financer added</p>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+</div>

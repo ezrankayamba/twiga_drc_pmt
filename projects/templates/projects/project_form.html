@@ -1,0 +1,59 @@
+{% extends "core/base.html" %} {% load crispy_forms_tags %} {% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3 small">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend>Project</legend>
+                <div class="d-flex justify-content-between">
+                    <p>
+                        GPS:
+                        <span id="coordinates"
+                            >{{form.instance.get_coordinates}}</span
+                        >
+                    </p>
+                    <div class="button-group">
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary"
+                            id="captureGPS"
+                        >
+                            <i class="fa fa-search-plus"></i> Capture GPS
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#mapModel">
+                          <i class="fa fa-map-marker-alt"></i> Map
+                        </button>
+                    </div>
+                </div>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info btn-block" type="submit">
+                    Save
+                </button>
+            </div>
+
+            <div class="d-none" id="urls">
+                <input type="hidden" class="popup-setups-load-districts" value="{%url 'popup-setups-load-districts'%}" />
+                <input type="hidden" class="popup-setups-type-create" value="{%url 'popup-setups-type-create'%}" />
+                <input type="hidden" class="popup-setups-region-create" value="{%url 'popup-setups-region-create'%}"/>
+                <input type="hidden" class="popup-setups-district-create" value="{%url 'popup-setups-district-create'%}"/>
+                <input type="hidden" class="popup-setups-authority-create" value="{%url 'popup-setups-authority-create'%}"/>
+                <input type="hidden" class="popup-setups-status-create" value="{%url 'popup-setups-status-create'%}"/>
+                <input type="hidden" class="popup-setups-size-create" value="{%url 'popup-setups-size-create'%}"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+{%include 'projects/setup-model.html'%}
+{%include 'projects/map-model.html'%}
+<script type="text/javascript">
+    docReady(function(){
+        form_capture_GPS();
+    });
+</script>
+{% include 'projects/form_scripts.html' %} {% endblock content%}
+{% block my_script%}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQ7WXCqy5-cyHTyho_XLgBDHJZe4n-nAw&callback=initMapOnForm" async defer></script>
+{%endblock%}
